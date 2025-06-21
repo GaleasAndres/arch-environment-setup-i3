@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# === DYNAMIC PATH TO REPO ROOT ===
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_CONFIG_DIR="$SCRIPT_DIR/config"
+TARGET_CONFIG_DIR="$HOME/.config"
+
+PACKAGES=(
+  i3-wm
+  i3status
+  i3blocks
+  i3lock
+  picom
+  kitty
+  thunar
+  dunst
+  rofi
+)
+
+CONFIG_FOLDERS=(
+  i3
+  i3-block
+  i3-vm
+  i3lock
+  picom
+  kitty
+  Thunar
+  dunst
+  rofi
+)
+
+# === INSTALL PACKAGES ===
+echo "🔧 Installing required packages with yay..."
+for pkg in "${PACKAGES[@]}"; do
+  if ! pacman -Qi "$pkg" &> /dev/null; then
+    echo "→ Installing $pkg..."
+    yay -S --noconfirm "$pkg"
+  else
+    echo "✔️ $pkg already installed."
+  fi
+done
+
+# === COPY CONFIGS ===
+echo "📁 Copying config folders into $TARGET_CONFIG_DIR..."
+
+mkdir -p "$TARGET_CONFIG_DIR"
+
+for folder in "${CONFIG_FOLDERS[@]}"; do
+  SRC="$REPO_CONFIG_DIR/$folder"
+  DST="$TARGET_CONFIG_DIR/$folder"
+
+  if [ -d "$SRC" ]; then
+    echo "→ Copying $folder..."
+    rm -rf "$DST"
+    cp -r "$SRC" "$DST"
+  else
+    echo "⚠️ Warning: $SRC not found. Skipping $folder"
+  fi
+done
+
+echo "✅ Setup complete! Your rice is hot and ready 🍚"
+

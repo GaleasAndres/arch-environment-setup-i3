@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Get battery information
+battery_info=$(acpi -b)
+battery_percent=$(echo $battery_info | grep -oP '\d+%' | tr -d '%')
+
+# Output battery status and percentage
+echo "$battery_percent%"
+

@@ -1,0 +1,55 @@
+------- 󰀻 APPLICATIONS --------
+• Super+Enter: Kitty  
+• Super+W: Mozilla Firefox
+• Super+E: File Explorer (Thunar)
+• Super+D: Rofi Apps menu
+• Super+V: Rofi Clipboard
+• Super+A: Rofi Windows menu
+• Super+H: Keybinds/Shortcuts
+
+----  UTILITIES/MISCELLANEOUS ----
+• Super+L: Lock screen
+• Super+Shift+L: Suspend and lock screen
+• Super+Shift+E: Open exit menu
+• Super+P: Set up external monitor
+• Super+Shift+C: Reload configuration file
+• Super+Shift+R: Restart i3 preserving the session
+• Fn+Print: Take screenshot of the entire display
+• Fn+Shift+Print: Take screenshot of an area
+
+-------  SCREEN BEHAVIOUR ------
+
+-WORKSPACES
+• Super+Tab: Move to the next workspace
+• Super+Shift+Tab: Move to the previous workspace
+• Super+[n]: Move to the [n](number) workspace
+• Super+Shift+[n]: Move focused window to the [n] workspace
+
+-WINDOWS
+• Super+Q: Close Window
+• Super+R: Resize mode (use arrows)
+• Super+S: Layout stacking
+• Super+G: Layout tabbed
+• Super+T: Layout toggle
+• Super+J: Layout toggle split
+• Super+F: Fullscreen
+• Super+Shift+F: Floating window
+• Super+Space: Focus between tiling / floating windows
+• Super+[arrows]: Change focus
+• Super+Shift+[arrows]: Move focused window
+
+---------  KITTY -----------
+• Ctrl+Shift+T: Start a new session
+• Ctrl+Shift+Alt+T: Name the session
+• Ctrl+Shift+Enter: Start a new terminal
+• Ctrl+Shift+L: Arrange terminal panels
+• Ctrl+Shift+W: Close terminal panel
+• Ctrl+Shift+F: Move terminal panel forward
+• Ctrl+Shift+B: Move terminal panel backward
+• Ctrl+Shift+R: Resize mode
+• Ctrl+Shift+.: (dot) Move session right
+• Ctrl+Shift+,: (comma) Move session left
+• Ctrl+Shift+Z: Zoom terminal panel
+• Ctrl+Alt+[arrows]: Move to the pointed panel
+
+--------  LVIM (NEOVIM) --------

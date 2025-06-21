@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Possible names for the laptop screen and monitor
+laptop_screens=("eDP-1" "eDP")
+monitor_screens=("HDMI-1" "HDMI-A-0")
+
+# Function to find the connected display name from a list of possible names
+find_connected_display() {
+    local possible_names=("$@")
+    for name in "${possible_names[@]}"; do
+        if xrandr | grep -q "$name.* connected"; then
+            echo "$name"
+            return
+        fi
+    done
+    echo ""
+}
+
+# Find the connected laptop screen and monitor
+laptop_display=$(find_connected_display "${laptop_screens[@]}")
+monitor_display=$(find_connected_display "${monitor_screens[@]}")
+
+if [ -n "$monitor_display" ]; then
+    # Monitor is connected
+    if [ -n "$laptop_display" ]; then
+        # Both displays are connected
+        xrandr --output "$monitor_display" --mode 3840x1080 --pos 0x0 --rotate normal \
+               --output "$laptop_display" --mode 1920x1080 --pos 960x1080 --rotate normal
+    else
+        # Only the external monitor is connected, handle as needed
+        # You can add code here if you want to handle cases where only the external monitor is connected
+        echo "External monitor connected but no laptop display found"
+    fi
+else
+    # Monitor is disconnected
+    if [ -n "$laptop_display" ]; then
+        # Only the laptop display is connected
+        xrandr --output "$laptop_display" --mode 1920x1080 --pos 0x0 --rotate normal \
+               --output --off
+    else
+        # No displays connected, handle as needed
+        echo "No displays found"
+    fi
+fi
+
