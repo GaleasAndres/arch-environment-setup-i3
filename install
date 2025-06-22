@@ -15,15 +15,15 @@ PACKAGES=(
   thunar
   dunst
   rofi
+  zsh
+  rofi-greenclip
+  sddm
   ttf-jetbrains-mono-nerd
   ttf-hack-nerd
 )
 
 CONFIG_FOLDERS=(
   i3
-  i3-block
-  i3-vm
-  i3lock
   picom
   kitty
   Thunar
@@ -41,6 +41,12 @@ for pkg in "${PACKAGES[@]}"; do
     echo "✔️ $pkg already installed."
   fi
 done
+
+# === ENABLE SDDM ===
+if command -v systemctl &> /dev/null; then
+  echo "🔌 Enabling sddm.service..."
+  sudo systemctl enable sddm.service
+fi
 
 # === COPY CONFIGS ===
 echo "📁 Copying config folders into $TARGET_CONFIG_DIR..."
@@ -61,4 +67,13 @@ for folder in "${CONFIG_FOLDERS[@]}"; do
 done
 
 echo "✅ Setup complete! Your rice is hot and ready 🍚"
+
+# Prompt to start the display manager immediately
+read -r -p "Do you want to start the environment now? [Y/n] " start_now
+if [[ $start_now =~ ^[Yy]$ || $start_now =~ ^[Yy]es$ ]]; then
+  if command -v systemctl &> /dev/null; then
+    echo "🚀 Starting sddm.service..."
+    sudo systemctl start sddm.service
+  fi
+fi
 
