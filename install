@@ -54,6 +54,18 @@ if command -v systemctl &> /dev/null; then
   sudo systemctl enable sddm.service
 fi
 
+# === INSTALL POWERLEVEL10K ===
+echo "🎨 Installing Powerlevel10k theme..."
+if [ ! -d "$TARGET_CONFIG_DIR/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$TARGET_CONFIG_DIR/powerlevel10k"
+else
+  echo "✔️ Powerlevel10k already installed."
+fi
+
+# === SETUP ZSH CONFIGURATION ===
+echo "📄 Setting up zsh configuration..."
+cp -f "$REPO_CONFIG_DIR/zshrc-configuration" "$HOME/.zshrc"
+
 # === COPY CONFIGS ===
 echo "📁 Copying config folders into $TARGET_CONFIG_DIR..."
 
