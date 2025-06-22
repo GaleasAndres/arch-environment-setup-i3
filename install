@@ -20,6 +20,12 @@ PACKAGES=(
   sddm
   ttf-jetbrains-mono-nerd
   ttf-hack-nerd
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  lsd
+  bat
+  xclip
+  fzf
 )
 
 CONFIG_FOLDERS=(
