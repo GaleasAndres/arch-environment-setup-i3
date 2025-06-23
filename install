@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# === DYNAMIC PATH TO REPO ROOT ===
+# Dynamic path to repo
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_CONFIG_DIR="$SCRIPT_DIR/config"
 TARGET_CONFIG_DIR="$HOME/.config"
@@ -27,6 +27,8 @@ PACKAGES=(
   xclip
   fzf
   feh
+  scrot
+  xdg-user-dirs
 )
 
 CONFIG_FOLDERS=(
@@ -39,8 +41,13 @@ CONFIG_FOLDERS=(
   wallpaper
 )
 
-# === INSTALL PACKAGES ===
-echo "🔧 Installing required packages with yay..."
+# Create standard XDG user directories
+for user in $(ls /home); do
+    sudo -u "$user" xdg-user-dirs-update
+done
+
+# Install packages
+echo "Installing required packages with yay..."
 for pkg in "${PACKAGES[@]}"; do
   if ! pacman -Qi "$pkg" &> /dev/null; then
     echo "→ Installing $pkg..."
@@ -50,26 +57,26 @@ for pkg in "${PACKAGES[@]}"; do
   fi
 done
 
-# === ENABLE SDDM ===
+# Enable SDDM
 if command -v systemctl &> /dev/null; then
-  echo "🔌 Enabling sddm.service..."
+  echo "Enabling sddm.service..."
   sudo systemctl enable sddm.service
 fi
 
-# === INSTALL POWERLEVEL10K ===
-echo "🎨 Installing Powerlevel10k theme..."
+# Install Powerlevel10k
+echo "Installing Powerlevel10k theme..."
 if [ ! -d "$TARGET_CONFIG_DIR/powerlevel10k" ]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$TARGET_CONFIG_DIR/powerlevel10k"
 else
-  echo "✔️ Powerlevel10k already installed."
+  echo "Powerlevel10k already installed."
 fi
 
-# === SETUP ZSH CONFIGURATION ===
-echo "📄 Setting up zsh configuration..."
+# Setup zsh
+echo "Setting up zsh configuration..."
 cp -f "$REPO_CONFIG_DIR/zshrc-configuration" "$HOME/.zshrc"
 
-# === COPY CONFIGS ===
-echo "📁 Copying config folders into $TARGET_CONFIG_DIR..."
+# Copy Configs
+echo "Copying config folders into $TARGET_CONFIG_DIR..."
 
 mkdir -p "$TARGET_CONFIG_DIR"
 
@@ -86,7 +93,7 @@ for folder in "${CONFIG_FOLDERS[@]}"; do
   fi
 done
 
-echo "✅ Setup complete! Your rice is hot and ready 🍚"
+echo "✅ Setup complete! Your awesome Arch environment is hot and ready!"
 
 # Prompt to start the display manager immediately
 read -r -p "Do you want to start the environment now? [Y/n] " start_now
