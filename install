@@ -36,6 +36,7 @@ CONFIG_FOLDERS=(
   Thunar
   dunst
   rofi
+  wallpaper
 )
 
 # === INSTALL PACKAGES ===
