@@ -26,6 +26,7 @@ PACKAGES=(
   bat
   xclip
   fzf
+  feh
 )
 
 CONFIG_FOLDERS=(
