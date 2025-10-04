@@ -29,6 +29,9 @@ PACKAGES=(
   feh
   scrot
   xdg-user-dirs
+  playerctl
+  brightnessctl
+  kmod
 )
 
 CONFIG_FOLDERS=(
@@ -45,10 +48,10 @@ CONFIG_FOLDERS=(
 echo "Installing required packages with yay..."
 for pkg in "${PACKAGES[@]}"; do
   if ! pacman -Qi "$pkg" &> /dev/null; then
-    echo "→ Installing $pkg..."
+    echo "Installing $pkg..."
     yay -S --noconfirm "$pkg"
   else
-    echo "✔️ $pkg already installed."
+    echo "$pkg already installed."
   fi
 done
 
@@ -85,21 +88,21 @@ for folder in "${CONFIG_FOLDERS[@]}"; do
   DST="$TARGET_CONFIG_DIR/$folder"
 
   if [ -d "$SRC" ]; then
-    echo "→ Copying $folder..."
+    echo "Copying $folder..."
     rm -rf "$DST"
     cp -r "$SRC" "$DST"
   else
-    echo "⚠️ Warning: $SRC not found. Skipping $folder"
+    echo "Warning: $SRC not found. Skipping $folder"
   fi
 done
 
-echo "✅ Setup complete! Your awesome Arch environment is hot and ready!"
+echo "Setup complete! Your awesome Arch environment is hot and ready!"
 
 # Prompt to start the display manager immediately
 read -r -p "Do you want to start the environment now? [Y/n] " start_now
 if [[ $start_now =~ ^[Yy]$ || $start_now =~ ^[Yy]es$ ]]; then
   if command -v systemctl &> /dev/null; then
-    echo "🚀 Starting sddm.service..."
+    echo "Starting sddm.service..."
     sudo systemctl start sddm.service
   fi
 fi
